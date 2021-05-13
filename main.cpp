@@ -1,5 +1,8 @@
-#include "linkedList.hh"
+#include "MovieEntry.hh"
 #include <fstream>
+#include <vector>
+#include <memory>
+#include <iostream>
 
 
 int main() {
@@ -11,16 +14,21 @@ int main() {
 
     getline(fileRanking, x);
 
+    vector<MovieEntry> movieList;
+
+    movieList.clear();
     
-    MovieEntry *film1 = new MovieEntry();
-    for(int i=0;i<16;i++)
+    MovieEntry film1;
+    for(int i=0;i<15;i++)
     {
     getline(fileRanking,x,',');
     getline(fileRanking,x,',');
-    film1->setName(x);
+    film1.movieName = x;
     getline(fileRanking,x,'\n');
-    film1->setScore(std::stof(x));
-    film1->display();
+    film1.score = (std::stof(x));
+    movieList.push_back(film1);
+    std::cout << "Title: " << movieList[i].movieName << std::endl;
+    std::cout << "Score: " << movieList[i].score << std::endl;
     }
 
 /*
