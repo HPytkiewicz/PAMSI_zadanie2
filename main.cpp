@@ -8,13 +8,13 @@
 int main() {
     std::fstream fileRanking;
 
-    fileRanking.open("projekt2_dane.csv", ios::in);
+    fileRanking.open("projekt2_dane.csv", std::ios::in);
 
-    string x;
+    std::string x;
 
-    getline(fileRanking, x);
+    getline(fileRanking, x, '\n');
 
-    vector<MovieEntry> movieList;
+    std::vector<MovieEntry> movieList;
 
     movieList.clear();
     
@@ -22,10 +22,12 @@ int main() {
     for(int i=0;i<15;i++)
     {
     getline(fileRanking,x,',');
-    getline(fileRanking,x,',');
-    film1.movieName = x;
     getline(fileRanking,x,'\n');
-    film1.score = (std::stof(x));
+    std::string str1;
+    str1 = x.substr(x.rfind(',')+1);
+    film1.score = (std::stof(str1));
+    x.erase(x.rfind(','));
+    film1.movieName = x;
     movieList.push_back(film1);
     std::cout << "Title: " << movieList[i].movieName << std::endl;
     std::cout << "Score: " << movieList[i].score << std::endl;
