@@ -37,8 +37,8 @@ int main() {
 
 
    int answer;
-
-    linkedList *lista;
+    Node* tryNode = NULL;
+    linkedList* lista = new linkedList();
     string nazwa;
     float score;
     bool quit = false;
@@ -51,10 +51,13 @@ int main() {
         cin.ignore();
         std::cout<<"Podaj nazwe filmu: ";
         std::getline(std::cin, nazwa);
+        std::cout << "Nazwa: " << nazwa << std::endl;
+        std::cout << "Nazwa: " << nazwa << std::endl;
         cin.ignore();
         std::cout<<"Podaj wynik filmu: ";
         std::cin >> score;
-        
+        std::cout << "Wynik: " << score << std::endl;
+        std::cout << "Wynik: " << score << std::endl;
         MovieEntry temp;
         temp.setName(nazwa);
         temp.setScore(score);
@@ -71,5 +74,6 @@ int main() {
         break;
    }
 }
+    delete tryNode;
     return 0;
 }

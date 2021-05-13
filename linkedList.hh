@@ -13,6 +13,8 @@ void insertAfter(Node* currentNode, const MovieEntry& newEntry);
 void displayAll();
 bool isEmpty();
 
+Node* getHead() {return this->head;}
+
 };
 
 linkedList::linkedList()
@@ -30,15 +32,16 @@ linkedList::~linkedList()
 void linkedList::insertFirst(const MovieEntry& newEntry)
 {
     if(this->isEmpty())
-    {
+   {
         Node* temp = new Node(this->head, newEntry, this->trailer);
         this->head = temp;
         this->trailer = temp;
     }
     else
     {
-        Node* temp = new Node(this->head, newEntry, this->head->getNext());
-        this->head = temp;
+        Node* temp = new Node(NULL, newEntry, this->head); // Nastepny musi pokazac na poprzedni
+        (this->head)->setPrev(temp);                       // Ewentualne danie headowi nexta i preva
+        this->head=temp;
     }
 }
 
@@ -62,7 +65,7 @@ void linkedList::insertAfter(Node* currentNode, const MovieEntry& newEntry)
 
 bool linkedList::isEmpty()
 {
-    return (head==NULL);
+    return (this->head==NULL);
 }
 
 void linkedList::displayAll()
