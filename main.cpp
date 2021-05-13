@@ -3,7 +3,6 @@
 
 
 int main() {
-    /*
     std::fstream fileRanking;
 
     fileRanking.open("projekt2_dane.csv", ios::in);
@@ -12,14 +11,19 @@ int main() {
 
     getline(fileRanking, x);
 
+    
     MovieEntry *film1 = new MovieEntry();
+    for(int i=0;i<16;i++)
+    {
     getline(fileRanking,x,',');
     getline(fileRanking,x,',');
     film1->setName(x);
     getline(fileRanking,x,'\n');
     film1->setScore(std::stof(x));
     film1->display();
+    }
 
+/*
     MovieEntry *film2 = new MovieEntry();
     getline(fileRanking,x,',');
     getline(fileRanking,x,',');
@@ -33,47 +37,7 @@ int main() {
     std::cout << "Title: " << x << std::endl;
     getline(fileRanking,x,'\n');
     std::cout << "Score (string for now): " << x << std::endl;
-    */
+*/
 
-
-   int answer;
-    Node* tryNode = NULL;
-    linkedList* lista = new linkedList();
-    string nazwa;
-    float score;
-    bool quit = false;
-    while(!quit){
-    std::cout << "Insert your choice (1-insert, 2-display): ";
-    std::cin >> answer;
-   switch(answer){
-        case 1:
-        {
-        cin.ignore();
-        std::cout<<"Podaj nazwe filmu: ";
-        std::getline(std::cin, nazwa);
-        std::cout << "Nazwa: " << nazwa << std::endl;
-        std::cout << "Nazwa: " << nazwa << std::endl;
-        cin.ignore();
-        std::cout<<"Podaj wynik filmu: ";
-        std::cin >> score;
-        std::cout << "Wynik: " << score << std::endl;
-        std::cout << "Wynik: " << score << std::endl;
-        MovieEntry temp;
-        temp.setName(nazwa);
-        temp.setScore(score);
-        lista->insertFirst(temp);
-        }
-        break;
-        case 2:
-        {
-        lista->displayAll();
-        }
-        break;
-        default:
-        quit = true;
-        break;
-   }
-}
-    delete tryNode;
     return 0;
 }

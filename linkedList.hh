@@ -32,16 +32,13 @@ linkedList::~linkedList()
 void linkedList::insertFirst(const MovieEntry& newEntry)
 {
     if(this->isEmpty())
-   {
-        Node* temp = new Node(this->head, newEntry, this->trailer);
-        this->head = temp;
-        this->trailer = temp;
-    }
-    else
     {
-        Node* temp = new Node(NULL, newEntry, this->head); // Nastepny musi pokazac na poprzedni
-        (this->head)->setPrev(temp);                       // Ewentualne danie headowi nexta i preva
-        this->head=temp;
+        Node* temp = new Node();
+        temp->setElement(newEntry);
+        temp->setNext(trailer);
+        temp->setPrev(head);
+        this->head->setNext(temp);
+        this->trailer->setPrev(temp);
     }
 }
 
