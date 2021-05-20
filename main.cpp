@@ -50,7 +50,10 @@ int main() {
     std::cout << "Sorting..." << std::endl;
 
     //bucketSort(movieList);
+    auto start_pt2 = std::chrono::high_resolution_clock::now();
     bucketSort2(movieList);
+    auto stop_pt2 = std::chrono::high_resolution_clock::now();
+    auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt2 - start_pt2);
 
     bool isSorted = true;
     std::vector<int> linia;
@@ -68,6 +71,7 @@ int main() {
         }
     }
     std::cout << "Stan posortowania: " << int(isSorted) << std::endl;
+    std::cout << "Sorting duration: " << duration2.count() << std::endl;
     for (int i = 0; i < linia.size(); i++)
         std::cout << "Linia " << linia[i] << std::endl;
 /*
