@@ -22,7 +22,7 @@ int main() {
 
     movieList.clear();
 
-    long movieNumber = 1000000;
+    long movieNumber = 10000;
 
     movieList.resize(movieNumber);
     
@@ -48,91 +48,26 @@ int main() {
     std::cout << "Duration: " << duration.count() << std::endl;
     std::cout << "Sorting." << std::endl;
 
-    //bucketSort(movieList);
-    /*
-    quickSort(movieList,0,100000);
-    quickSort(movieList,100001,200000);
-    quickSort(movieList,200001,300000);
-    quickSort(movieList,300001,400000);
-    quickSort(movieList,400001,500000);
-    quickSort(movieList,500001,600000);
-    quickSort(movieList,700001,800000);
-    quickSort(movieList,800001,900000);
-    quickSort(movieList,900001,1000000);
-    */
-    
-    std::vector<MovieEntry> bucket0, bucket1, bucket2, bucket3, bucket4, bucket5;
+    bucketSort(movieList);
 
-    for(int i = 500000; i<600000; i++)
-    {
-        int temp = movieList[i].score;
-        switch (temp)
-        {
-        case 1:
-            bucket0.push_back(movieList[temp]);
-            break;
-        case 2:
-            bucket0.push_back(movieList[temp]);
-            break;
-        case 3:
-            bucket1.push_back(movieList[temp]);
-            break;
-        case 4:
-            bucket1.push_back(movieList[temp]);
-            break;
-        case 5:
-            bucket2.push_back(movieList[temp]);
-            break;
-        case 6:
-            bucket2.push_back(movieList[temp]);
-            break;
-        case 7:
-            bucket3.push_back(movieList[temp]);
-            break;
-        case 8:
-            bucket3.push_back(movieList[temp]);
-            break;
-        case 9:
-            bucket4.push_back(movieList[temp]);
-            break;
-        case 10:
-            bucket4.push_back(movieList[temp]);
-            break;
-        default:
-            break;
-        }
-    }
-    
-    quickSort(bucket0,0, bucket0.size()-1);
-    std::cout << 0 << std::endl;                                  
-    //quickSort(bucket1,0, bucket1.size()-1);
-    std::cout << 1 << std::endl;                                  
-    //quickSort(bucket2,0, bucket2.size()-1);
-    std::cout << 2 << std::endl;                                  
-    //quickSort(bucket3,0, bucket3.size()-1);
-    std::cout << 3 << std::endl;                                  
-    //quickSort(bucket4,0, bucket4.size()-1);
-    std::cout << 4 << std::endl;                                  
-
-    movieList.clear();
-    for(int i = 0; i < bucket0.size(); i++)
-        movieList.push_back(bucket0[i]);
-        /*
-    for(int i = 0; i < bucket1.size(); i++)
-        movieList.push_back(bucket1[i]);
-    for(int i = 0; i < bucket2.size(); i++)
-        movieList.push_back(bucket2[i]);
-    for(int i = 0; i < bucket3.size(); i++)
-        movieList.push_back(bucket3[i]);
-    for(int i = 0; i < bucket4.size(); i++)
-        movieList.push_back(bucket4[i]);
-        */
-
-    for (int i = 50000; i<movieNumber; i++)
+    bool isSorted = true;
+    std::vector<int> linia;
+    for (int i = 0; i<movieList.size(); i++)
     {
         std::cout << "Title: " << movieList[i].movieName << std::endl;
         std::cout << "Score: " << movieList[i].score << std::endl;
+        if(i>0)
+        {
+            if(movieList[i].score<movieList[i-1].score)
+            {
+                isSorted = false;
+                linia.push_back(i);
+            }
+        }
     }
+    std::cout << "Stan posortowania: " << int(isSorted) << std::endl;
+    for (int i = 0; i < linia.size(); i++)
+        std::cout << "Linia " << linia[i] << std::endl;
 /*
     MovieEntry *film2 = new MovieEntry();
     getline(fileRanking,x,',');
