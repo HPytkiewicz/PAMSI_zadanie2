@@ -1,5 +1,7 @@
 //#include "MovieEntry.hh"
+
 #include "bucketsort.hh"
+#include "quicksort.hh"
 #include <fstream>
 #include <vector>
 #include <memory>
@@ -19,10 +21,14 @@ int main() {
     std::vector<MovieEntry> movieList;
 
     movieList.clear();
+
+    long movieNumber = 550000;
+
+    movieList.reserve(movieNumber);
     
     MovieEntry tempMovie;
     auto start_pt = std::chrono::high_resolution_clock::now();
-    for(int i=0;i<10;i++)
+    for(int i=0;i<movieNumber;i++)
     {
         getline(fileRanking,x,',');
         getline(fileRanking,x,'\n');
@@ -35,8 +41,6 @@ int main() {
         x.erase(x.rfind(','));
         tempMovie.movieName = x;
         movieList.push_back(tempMovie);
-        std::cout << "Title: " << movieList[i].movieName << std::endl;
-        std::cout << "Score: " << movieList[i].score << std::endl;
     }
     auto stop_pt = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt - start_pt);
@@ -44,9 +48,11 @@ int main() {
     std::cout << "Duration: " << duration.count() << std::endl;
     std::cout << "Sorting." << std::endl;
 
-    bucketSort(movieList);
+    //bucketSort(movieList);
+    quickSort(movieList,0,movieList.size()-1);
+    
 
-    for (int i = 0; i<10; i++)
+    for (int i = 0; i<movieNumber; i++)
     {
         std::cout << "Title: " << movieList[i].movieName << std::endl;
         std::cout << "Score: " << movieList[i].score << std::endl;
