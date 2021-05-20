@@ -51,7 +51,8 @@ int main() {
 
     //bucketSort(movieList);
     auto start_pt2 = std::chrono::high_resolution_clock::now();
-    bucketSort2(movieList);
+    //bucketSort2(movieList);
+    quickSort(movieList,0,movieList.size()-1);
     auto stop_pt2 = std::chrono::high_resolution_clock::now();
     auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt2 - start_pt2);
 
