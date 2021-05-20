@@ -45,13 +45,20 @@ void bucketSort(std::vector<MovieEntry>& movieList)
    std::cout << "Buckets size: " << buckets.size() << std::endl;
    for (int i = 0; i < 6; i++)
     std::cout << "Bucket size: " << buckets[i].size() << std::endl;
-    for(int i = 0; i < nBuckets; i++)
-    {
-        quickSort(buckets[i],0, buckets[i].size()-1);
-        std::cout << i << std::endl;
-    }                                                             // sort() i wlasnej funkcji isBigger()
+    quickSort(buckets[0],0, buckets[0].size()-1);
+    std::cout << 0 << std::endl;                                  
+    quickSort(buckets[1],0, buckets[1].size()-1);
+    std::cout << 1 << std::endl;                                  
+    quickSort(buckets[2],0, buckets[2].size()-1);
+    std::cout << 2 << std::endl;                                  
+    quickSort(buckets[3],0, buckets[3].size()-1);
+    std::cout << 3 << std::endl;                                  
+    quickSort(buckets[4],0, buckets[4].size()-1);
+    std::cout << 4 << std::endl;                                  
+    quickSort(buckets[5],0, buckets[5].size()-1);
+    std::cout << 5 << std::endl;                                  
 
-    int x = 0;  // indeks docelowej tablicy
+    long x = 0;  // indeks docelowej tablicy
     for (int i = 0; i < nBuckets; i++)
     {
         for(int j = 0; j < buckets[i].size(); j++)

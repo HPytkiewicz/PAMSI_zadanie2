@@ -4,16 +4,17 @@
 #include "MovieEntry.hh"
 #include <iostream>
 #include <vector>
+#include <cmath>
 
-int partition(std::vector<MovieEntry>& movieList, long low, long high)
+long partition(std::vector<MovieEntry>& movieList, long low, long high)
 {
-    MovieEntry pivot = movieList[high];
+    int pivot = movieList[floor((high+low)/2)].score;
 
     long i = low -1;
 
     for(long j = low; j<=high-1; j++)
     {
-        if(movieList[j].score<pivot.score)
+        if(movieList[j].score<pivot)
         {
             i++;
             MovieEntry temp = movieList[i];
