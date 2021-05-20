@@ -1,6 +1,7 @@
 //#include "MovieEntry.hh"
 
 #include "bucketsort.hh"
+#include "buckersort2.hh"
 #include "quicksort.hh"
 #include <fstream>
 #include <vector>
@@ -22,7 +23,7 @@ int main() {
 
     movieList.clear();
 
-    long movieNumber = 10000;
+    long movieNumber = 1000000;
 
     movieList.resize(movieNumber);
     
@@ -46,9 +47,10 @@ int main() {
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt - start_pt);
 
     std::cout << "Duration: " << duration.count() << std::endl;
-    std::cout << "Sorting." << std::endl;
+    std::cout << "Sorting..." << std::endl;
 
-    bucketSort(movieList);
+    //bucketSort(movieList);
+    bucketSort2(movieList);
 
     bool isSorted = true;
     std::vector<int> linia;

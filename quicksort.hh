@@ -8,7 +8,7 @@
 
 long partition(std::vector<MovieEntry>& movieList, long low, long high)
 {
-    int pivot = movieList[floor((high+low)/2)].score;
+    int pivot = movieList[high].score;
 
     long i = low -1;
 
