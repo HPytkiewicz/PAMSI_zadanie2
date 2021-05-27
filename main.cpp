@@ -3,6 +3,7 @@
 #include "bucketsort.hh"
 #include "buckersort2.hh"
 #include "quicksort.hh"
+#include "quicksort2.hh"
 #include <fstream>
 #include <vector>
 #include <memory>
@@ -44,6 +45,7 @@ int main() {
         x.erase(x.rfind(','));
         tempMovie.movieName = x;
         movieVector[i] = tempMovie;
+        movieList.push_back(tempMovie);
     }
     auto stop_pt = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt - start_pt);
@@ -54,7 +56,8 @@ int main() {
     //bucketSort(movieVector);
     auto start_pt2 = std::chrono::high_resolution_clock::now();
     //bucketSort2(movieVector);
-    quickSort(movieVector,0,movieVector.size()-1);
+    //quickSort(movieVector,0,movieVector.size()-1);
+    quicksort2(movieVector,0,movieVector.size()-1);
     auto stop_pt2 = std::chrono::high_resolution_clock::now();
     auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt2 - start_pt2);
 
@@ -73,6 +76,7 @@ int main() {
             }
         }
     }
+
     std::cout << "Stan posortowania: " << int(isSorted) << std::endl;
     std::cout << "Sorting duration: " << duration2.count() << std::endl;
     for (int i = 0; i < linia.size(); i++)
