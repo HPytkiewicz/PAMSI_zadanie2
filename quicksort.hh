@@ -1,42 +1,47 @@
-#ifndef QUICK_HH
-#define QUICK_HH
+#ifndef QUICK2_HH
+#define QUICK2_HH
 
 #include "MovieEntry.hh"
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <stdlib.h>
 
-long partition(std::vector<MovieEntry>& movieList, long low, long high)
+
+int inPlacePartition(std::vector<MovieEntry>& movieList,int first, int last)
 {
-    int pivot = movieList[high].score;
+   int pivot = movieList[first + (last-first)/2].score;//movieList[first].score;
+   int l = first-1;
+   int r = last + 1;
 
-    long i = low -1;
+   while(1)
+   {
+       do{
+        l++;
+       }while (movieList[l].score<pivot);
+       do{
+        r--;
+       }while(movieList[r].score>pivot);
+       
+       if(l>=r)
+        return r;
 
-    for(long j = low; j<=high-1; j++)
-    {
-        if(movieList[j].score<pivot)
-        {
-            i++;
-            MovieEntry temp = movieList[i];
-            movieList[i] = movieList[j];
-            movieList[j] = temp;
-        }
-    }
-    MovieEntry temp = movieList[i+1];
-    movieList[i+1] = movieList[high];
-    movieList[high] = temp;
+       std::swap(movieList[l], movieList[r]);
+   }
 
-    return (i+1);
 }
 
-void quickSort(std::vector<MovieEntry>& movieList, long low, long high)
+void quicksort2(std::vector<MovieEntry>& movieList, int first, int last)
 {
-    if(low<high)
+    if(first<last)
     {
-        long x = partition(movieList, low, high);
-        quickSort(movieList, low, x-1);
-        quickSort(movieList, x+1, high);
+
+        int l = inPlacePartition(movieList, first, last);
+        quicksort2(movieList, first,l);
+        quicksort2(movieList,l+1,last);
     }
+    
 }
+
 
 #endif

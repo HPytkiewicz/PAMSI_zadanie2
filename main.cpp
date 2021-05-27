@@ -1,10 +1,9 @@
 //#include "MovieEntry.hh"
 
 #include "bucketsort.hh"
-#include "buckersort2.hh"
 #include "mergesort.hh"
 #include "quicksort.hh"
-#include "quicksort2.hh"
+#include "introsort.hh"
 #include <fstream>
 #include <vector>
 #include <memory>
@@ -21,15 +20,15 @@ int main() {
 
     getline(fileRanking, x, '\n');
 
-    std::vector<MovieEntry> movieVector;
+    std::vector<MovieEntry> movieList;
 
     std::list<MovieEntry> movieList;
 
-    movieVector.clear();
+    movieList.clear();
 
-    long movieNumber = 100000;
+    long movieNumber = 10000;
 
-    movieVector.resize(movieNumber);
+    movieList.resize(movieNumber);
     
     MovieEntry tempMovie;
     auto start_pt = std::chrono::high_resolution_clock::now();
@@ -45,7 +44,7 @@ int main() {
             tempMovie.score = (std::stof(str1));
         x.erase(x.rfind(','));
         tempMovie.movieName = x;
-        movieVector[i] = tempMovie;
+        movieList[i] = tempMovie;
         movieList.push_back(tempMovie);
     }
     auto stop_pt = std::chrono::high_resolution_clock::now();
@@ -54,24 +53,25 @@ int main() {
     std::cout << "Duration: " << duration.count() << std::endl;
     std::cout << "Sorting..." << std::endl;
 
-    //bucketSort(movieVector);
     auto start_pt2 = std::chrono::high_resolution_clock::now();
-    //bucketSort2(movieVector);
-    //quickSort(movieVector,0,movieVector.size()-1);
-    //quicksort2(movieVector,0,movieVector.size()-1);
-    mergesort(movieVector,0,movieList.size()-1);
+    //bucketSort2(movieList);
+    //quicksort2(movieList,0,movieList.size()-1);
+    //mergesort(movieList,0,movieList.size()-1);
+    int depth = (int)floor(2*log(movieList.size())/M_LN2);
+    introsort(movieList, 0, movieList.size()-1, depth);
+    
     auto stop_pt2 = std::chrono::high_resolution_clock::now();
     auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt2 - start_pt2);
 
     bool isSorted = true;
     std::vector<int> linia;
-    for (int i = 0; i<movieVector.size(); i++)
+    for (int i = 0; i<movieList.size(); i++)
     {
-        std::cout << "Title: " << movieVector[i].movieName << std::endl;
-        std::cout << "Score: " << movieVector[i].score << std::endl;
+        std::cout << "Title: " << movieList[i].movieName << std::endl;
+        std::cout << "Score: " << movieList[i].score << std::endl;
         if(i>0)
         {
-            if(movieVector[i].score<movieVector[i-1].score)
+            if(movieList[i].score<movieList[i-1].score)
             {
                 isSorted = false;
                 linia.push_back(i);
