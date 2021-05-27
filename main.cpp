@@ -2,6 +2,7 @@
 
 #include "bucketsort.hh"
 #include "buckersort2.hh"
+#include "mergesort.hh"
 #include "quicksort.hh"
 #include "quicksort2.hh"
 #include <fstream>
@@ -26,7 +27,7 @@ int main() {
 
     movieVector.clear();
 
-    long movieNumber = 1000000;
+    long movieNumber = 10;
 
     movieVector.resize(movieNumber);
     
@@ -57,7 +58,8 @@ int main() {
     auto start_pt2 = std::chrono::high_resolution_clock::now();
     //bucketSort2(movieVector);
     //quickSort(movieVector,0,movieVector.size()-1);
-    quicksort2(movieVector,0,movieVector.size()-1);
+    //quicksort2(movieVector,0,movieVector.size()-1);
+    mergesort(movieVector,0,movieList.size()-1);
     auto stop_pt2 = std::chrono::high_resolution_clock::now();
     auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt2 - start_pt2);
 
