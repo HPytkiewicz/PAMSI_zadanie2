@@ -1,5 +1,6 @@
 //#include "MovieEntry.hh"
 
+#define MOVIE_NUMBER 1010293
 #include "bucketsort.hh"
 #include "mergesort.hh"
 #include "quicksort.hh"
@@ -60,14 +61,14 @@ int main() {
 
     std::vector<MovieEntry> movieList;
 
-    long movieNumber = 10000;
+    long movieNumber = 1000000;
 
     movieList.resize(movieNumber);
     
     MovieEntry tempMovie;   // stworzenie pomocniczej zmienniej do dodawania filmow do wektora
      
     auto start_pt = std::chrono::high_resolution_clock::now();  // mierzenie czasu wczytania danych
-    
+    float average = 0;
     // wczytywanie danych do wektora 
     for(int i=0;i<movieNumber;i++)
     {
