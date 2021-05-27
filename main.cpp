@@ -26,7 +26,7 @@ int main() {
 
     movieVector.clear();
 
-    long movieNumber = 100000;
+    long movieNumber = 20;
 
     movieVector.resize(movieNumber);
     

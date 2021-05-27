@@ -11,32 +11,41 @@
 int inPlacePartition(std::vector<MovieEntry>& movieList,int first, int last)
 {
     int l = first;
-    int r = last - 1;
+    int r = last;
+    int pivot = first + (last - first)/2;
 
     while (l <= r)
     {
-        if(movieList[l].score>movieList[r].score)
+        while(movieList[l].score<movieList[pivot].score)
+        {
+            l++;
+        }
+        while (movieList[r].score>movieList[pivot].score)
+        {
+            r--;
+        }        
+        if(l<=r)
+        {
             std::swap(movieList[l],movieList[r]);
-        l++;
-        r++;
+            l++;
+            r--;
+        }
     }
-
     return l;
 }
 
 void quicksort2(std::vector<MovieEntry>& movieList, int first, int last)
 {
-    int l;
-    if(first<=last)
+    if(first<last)
     {
         //srand(time(NULL));
-        int pivot = last-1; //rand() % (last-first) + first;
+        //int pivot = first + (last - first)/2;
 
-        std::swap(movieList[pivot],movieList[last]);
+        //std::swap(movieList[pivot],movieList[last]);
 
-        l = inPlacePartition(movieList, first, last);
+        int l = inPlacePartition(movieList, first, last);
         quicksort2(movieList, first,l-1);
-        quicksort2(movieList,l+1,last);
+        quicksort2(movieList,l,last);
     }
     
 }
