@@ -11,6 +11,44 @@
 #include <chrono>
 #include <list>
 
+
+void displayList(std::vector<MovieEntry> movieList)
+{
+    for (int i = 0; i<movieList.size(); i++)
+    {
+        std::cout << "Title: " << movieList[i].movieName << std::endl;
+        std::cout << "Score: " << movieList[i].score << std::endl;
+    }
+}
+
+bool isInOrder(std::vector<MovieEntry> movieList)
+{
+    bool isSorted = true;
+    for (int i = 0; i < movieList.size() - 1; i++)
+    {
+        if(i>0)
+        {
+            if(movieList[i].score<movieList[i-1].score)
+            {
+                isSorted = false;
+            }
+        }
+    }
+    return isSorted;
+}
+
+void displayMenu()
+{
+    std::cout << "Available options: " << std::endl;
+    std::cout << "1. bucketsort" << std::endl;
+    std::cout << "2. quicksort" << std::endl;
+    std::cout << "3. mergesort" << std::endl;
+    std::cout << "4. introsort" << std::endl;
+    std::cout << "5. display current Movie List" << std::endl;
+    std::cout << "6. quit" << std::endl;
+}
+
+
 int main() {
     std::fstream fileRanking;
 
@@ -22,16 +60,15 @@ int main() {
 
     std::vector<MovieEntry> movieList;
 
-    std::list<MovieEntry> movieList;
-
-    movieList.clear();
-
     long movieNumber = 10000;
 
     movieList.resize(movieNumber);
     
-    MovieEntry tempMovie;
-    auto start_pt = std::chrono::high_resolution_clock::now();
+    MovieEntry tempMovie;   // stworzenie pomocniczej zmienniej do dodawania filmow do wektora
+     
+    auto start_pt = std::chrono::high_resolution_clock::now();  // mierzenie czasu wczytania danych
+    
+    // wczytywanie danych do wektora 
     for(int i=0;i<movieNumber;i++)
     {
         getline(fileRanking,x,',');
@@ -50,54 +87,73 @@ int main() {
     auto stop_pt = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt - start_pt);
 
-    std::cout << "Duration: " << duration.count() << std::endl;
-    std::cout << "Sorting..." << std::endl;
+    std::cout << "Elements inserting duration: " << duration.count() << std::endl;
 
-    auto start_pt2 = std::chrono::high_resolution_clock::now();
-    //bucketSort2(movieList);
-    //quicksort2(movieList,0,movieList.size()-1);
-    //mergesort(movieList,0,movieList.size()-1);
-    int depth = (int)floor(2*log(movieList.size())/M_LN2);
-    introsort(movieList, 0, movieList.size()-1, depth);
-    
-    auto stop_pt2 = std::chrono::high_resolution_clock::now();
-    auto duration2 = std::chrono::duration_cast<std::chrono::microseconds>(stop_pt2 - start_pt2);
+    bool quit = false;
 
-    bool isSorted = true;
-    std::vector<int> linia;
-    for (int i = 0; i<movieList.size(); i++)
+    while(!quit)
     {
-        std::cout << "Title: " << movieList[i].movieName << std::endl;
-        std::cout << "Score: " << movieList[i].score << std::endl;
-        if(i>0)
+        int answer;
+        displayMenu();
+        std::cin >> answer;
+        switch(answer)
         {
-            if(movieList[i].score<movieList[i-1].score)
+            case 1:
             {
-                isSorted = false;
-                linia.push_back(i);
+            auto start_ptb = std::chrono::high_resolution_clock::now(); // mierzenie czasu sortowania
+            bucketsort(movieList);
+            auto stop_ptb = std::chrono::high_resolution_clock::now();
+            auto durationb = std::chrono::duration_cast<std::chrono::microseconds>(stop_ptb - start_ptb);
+            std::cout << "Sorting duration: " << durationb.count() << std::endl;
+            break;
+            }
+            case 2:
+            {
+            auto start_ptq = std::chrono::high_resolution_clock::now(); // mierzenie czasu sortowania
+            quicksort(movieList,0,movieList.size()-1);
+            auto stop_ptq = std::chrono::high_resolution_clock::now();
+            auto durationq = std::chrono::duration_cast<std::chrono::microseconds>(stop_ptq - start_ptq);
+            std::cout << "Sorting duration: " << durationq.count() << std::endl;
+            break;
+            }
+            case 3:
+            {
+            auto start_ptm = std::chrono::high_resolution_clock::now(); // mierzenie czasu sortowania
+            mergesort(movieList,0,movieList.size()-1);
+            auto stop_ptm = std::chrono::high_resolution_clock::now();
+            auto durationm = std::chrono::duration_cast<std::chrono::microseconds>(stop_ptm - start_ptm);
+            std::cout << "Sorting duration: " << durationm.count() << std::endl;
+            break;
+            }
+            case 4:
+            {
+            auto start_pti = std::chrono::high_resolution_clock::now(); // mierzenie czasu sortowania
+            int depth = (int)floor(2*log(movieList.size())/M_LN2);
+            introsort(movieList, 0, movieList.size()-1, depth);
+            auto stop_pti = std::chrono::high_resolution_clock::now();
+            auto durationi = std::chrono::duration_cast<std::chrono::microseconds>(stop_pti - start_pti);
+            std::cout << "Sorting duration: " << durationi.count() << std::endl;
+            break;
+            }
+            case 5:
+            {
+            displayList(movieList);
+            std::cout << "Number of elements: " << movieNumber << std::endl;
+            std::cout << "Is list sorted? " << isInOrder(movieList) << " (1 means it is in order, 0 otherwise)" << std::endl;
+            break;
+            }
+            case 6:
+            {
+            quit = true;
+            break;
+            }
+            default:
+            {
+            std::cout << "Invalid command" << std::endl;
+            break;
             }
         }
     }
-
-    std::cout << "Stan posortowania: " << int(isSorted) << std::endl;
-    std::cout << "Sorting duration: " << duration2.count() << std::endl;
-    for (int i = 0; i < linia.size(); i++)
-        std::cout << "Linia " << linia[i] << std::endl;
-/*
-    MovieEntry *film2 = new MovieEntry();
-    getline(fileRanking,x,',');
-    getline(fileRanking,x,',');
-    film2->setName(x);
-    getline(fileRanking,x,'\n');
-    film2->setScore(std::stod(x));
-    film2->display();
-
-    getline(fileRanking,x,',');
-    getline(fileRanking,x,',');
-    std::cout << "Title: " << x << std::endl;
-    getline(fileRanking,x,'\n');
-    std::cout << "Score (string for now): " << x << std::endl;
-*/
 
     return 0;
 }

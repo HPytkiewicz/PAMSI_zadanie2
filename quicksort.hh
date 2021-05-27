@@ -31,14 +31,14 @@ int inPlacePartition(std::vector<MovieEntry>& movieList,int first, int last)
 
 }
 
-void quicksort2(std::vector<MovieEntry>& movieList, int first, int last)
+void quicksort(std::vector<MovieEntry>& movieList, int first, int last)
 {
     if(first<last)
     {
 
         int l = inPlacePartition(movieList, first, last);
-        quicksort2(movieList, first,l);
-        quicksort2(movieList,l+1,last);
+        quicksort(movieList, first,l);
+        quicksort(movieList,l+1,last);
     }
     
 }

@@ -9,7 +9,7 @@
 #include <cmath>
 #include <algorithm>
 
-void bucketSort2(std::vector<MovieEntry>& movieList)
+void bucketsort(std::vector<MovieEntry>& movieList)
 {
     float nBuckets = 10;   // ilosc kubelkow
     float max = 10;   // maksymalna ocena filmu, w naszym przypadku 10
